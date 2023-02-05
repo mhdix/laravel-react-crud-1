@@ -8,8 +8,10 @@ const StateContext = createContext({
 })
 
 const ContextProvider = ({children}) => {
-    const [user, setUser] = useState(null)
-    const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
+    const [user, setUser] = useState({
+        name: 'mahdi'
+    })
+    const [token, _setToken] = useState(354);
 
     const setToken = (token) =>{
         _setToken(token)
