@@ -11,7 +11,7 @@ const ContextProvider = ({children}) => {
     const [user, setUser] = useState({
         name: 'mahdi'
     })
-    const [token, _setToken] = useState(354);
+    const [token, _setToken] = useState(null);
 
     const setToken = (token) =>{
         _setToken(token)
