@@ -1,11 +1,16 @@
 import {Link} from "react-router-dom";
 import {useRef} from "react";
+import {useStateContext} from "../context/ContextProvider.jsx";
+import axiosClient from "../axios-client.js";
 
 export default function SignUp() {
     const nameRef = useRef()
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmationRef = useRef()
+
+    const {setUser , setToken} = useStateContext()
+
     const onsubmit = (e)=> {
         e.preventDefault()
         const payload = {
@@ -14,7 +19,16 @@ export default function SignUp() {
             password: passwordRef.current.value,
             password_confirmation: passwordConfirmationRef.current.value,
         }
-        console.log(payload)
+        axiosClient.post('/signup', payload)
+            .then(({data}) =>{
+                setToken(data.token)
+                setUser(data.token)
+            }).catch((error)=>{
+                const response = error.response
+            if (response && response.status === 422){
+                console.log(response.data.errors)
+            }
+        })
     }
     return (
         <div className='login-signup-form animated fadeInDown'>
