@@ -42,7 +42,7 @@ export default function SignUp() {
                     {error &&
                         <div className='alert'>
                             {Object.keys(error).map((keys) => (
-                                <p>{error[keys][0]}</p>
+                                <p key={keys}>{error[keys][0]}</p>
                             ))}
                         </div>
                     }
