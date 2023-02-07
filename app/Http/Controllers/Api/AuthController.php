@@ -14,11 +14,11 @@ class AuthController extends Controller
     public function signup(SignupRequest $request)
     {
         /** @var User $user */
-        $user = $request->validated();
-        $user->create([
-            'name' => $user['name'],
-            'email' => $user['email'],
-            'password' => bcrypt($user['password']),
+        $data = $request->validated();
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
         ]);
         $token = $user->createToken('main')->plainTextToken;
         return response(compact('user' , 'token'));
@@ -29,7 +29,7 @@ class AuthController extends Controller
 
         $credentials = $request->validated();
         if (!Auth::attempt($credentials)){
-            response([
+            return response([
                 'message' => 'ایمیل یا پسوورد اشتباه است',
             ]);
         }

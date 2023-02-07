@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import {useRef} from "react";
 import {useStateContext} from "../context/ContextProvider.jsx";
 import axiosClient from "../axios-client.js";
+import axios from "axios";
 
 export default function SignUp() {
     const nameRef = useRef()
@@ -22,7 +23,7 @@ export default function SignUp() {
         axiosClient.post('/signup', payload)
             .then(({data}) =>{
                 setToken(data.token)
-                setUser(data.token)
+                setUser(data.user)
             }).catch((error)=>{
                 const response = error.response
             if (response && response.status === 422){
