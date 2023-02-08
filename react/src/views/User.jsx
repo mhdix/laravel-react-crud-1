@@ -28,35 +28,37 @@ export default function User() {
     return (
         <div>
             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                <h1>Users</h1>
-                <Link to="/user/new" className='btn-add '>Add new</Link>
+                <h1>کاربران</h1>
+                <Link to="/user/new" className='btn-add '>اضافه کردن</Link>
             </div>
             <div className='card animated fadeInDown'>
-                <table>
-                    <thead style={{textAlign: 'center' , alignItems:'center'}}>
-                    <tr >
-                        <td>عملیات</td>
-                        <td>زمان ساخت</td>
-                        <td>ایمیل</td>
-                        <td>نام</td>
-                        <td>آیدی</td>
-                    </tr>
-                    </thead>
-                    <tbody style={{textAlign: 'center' , alignItems:'center'}}>
-                    {users && users?.map(user => (
-                        <tr key={user.id}>
-                            <td>
-                                <button className='btn-delete'>حذف</button>
-                                <Link to={`/user/${user.id}`} className='btn-edit'>ویرایش</Link>
-                            </td>
-                            <td>{user.created_at}</td>
-                            <td>{user.email}</td>
-                            <td>{user.name}</td>
-                            <td>{user.id}</td>
+                {!error ? loading === false ?
+                    <table className='animated fadeInDown'>
+                        <thead style={{textAlign: 'center', alignItems: 'center'}}>
+                        <tr>
+                            <td>عملیات</td>
+                            <td>زمان ساخت</td>
+                            <td>ایمیل</td>
+                            <td>نام</td>
+                            <td>آیدی</td>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody style={{textAlign: 'center', alignItems: 'center'}}>
+                        {users && users?.map(user => (
+                            <tr key={user.id}>
+                                <td>
+                                    <button className='btn-delete' style={{marginRight: '5px'}}>حذف</button>
+                                    <Link to={`/user/${user.id}`} className='btn-edit'>ویرایش</Link>
+                                </td>
+                                <td>{user.created_at}</td>
+                                <td>{user.email}</td>
+                                <td>{user.name}</td>
+                                <td>{user.id}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                    : <h1 className='text-center animated fadeInDown'>...درحال دریافت اطلاعات از سرور</h1>:<div className='alert alert-danger text-center' role='alert'>{error}</div>}
             </div>
         </div>
     );
